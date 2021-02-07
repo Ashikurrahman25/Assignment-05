@@ -1,6 +1,6 @@
 
 //Functionalities when search button is pressed
-function handleSearch(searchInput){
+const handleSearch=(searchInput)=>{
 
     //Show alert if search field is empty or white
     if(searchInput == "" || searchInput == " " || searchInput == undefined){
@@ -51,7 +51,7 @@ const doFetchRequest = (url, createCard )=>{
 
 
 //For dynamically making cards of food items
-function makeCard(name, imgSrc, mealID){
+const makeCard = (name, imgSrc, mealID) =>{
     const foodContainer = document.getElementById("meal-container");
 
     const cardCol = document.createElement('div');
@@ -85,6 +85,7 @@ function makeCard(name, imgSrc, mealID){
     //Add click event to the card for showing the details 
     cardCol.addEventListener('click', function(event){
 
+        document.documentElement.scrollTop = 0;
         document.getElementById("MainPage").style.display = "none";
         document.getElementById("DetailsPage").style.display = "block" ;
         document.getElementById("meal-title").innerText = name;
@@ -96,7 +97,7 @@ function makeCard(name, imgSrc, mealID){
 
 
 //Get and show all the required ingredients with measures
-function handleIngredient(meal, ingredientsList){
+const handleIngredient=(meal, ingredientsList) =>{
     let ingredients = [];
     let measure = [];
 
@@ -191,16 +192,18 @@ function handleIngredient(meal, ingredientsList){
 
 
 //For deleting previous elements under a parent
-function deleteChildren(container){
+const deleteChildren =(container) =>{
     while (container.firstChild) {
         container.removeChild(container.firstChild);
     }
 }
 
 
-function goBack(){
+const goBack=()=>{
+    document.documentElement.scrollTop = 0;
     document.getElementById("MainPage").style.display = "block";
     document.getElementById("DetailsPage").style.display = "none" ;
+    
 }
 
 //For showing error message
