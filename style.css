@@ -8,10 +8,6 @@ body{
     color: #3B2D64;
 }
 
-.nav{
-    background-color: aliceblue;
-}
-
 
 #search-btn{
     background-color: #3B2D64;
@@ -60,6 +56,17 @@ p:before {
     height: 25px;
     float: left;
     margin: 0 6px 0 0;
+}
+
+.custom-nav{
+    background-color: #EDD263;
+}
+
+.custom-nav a{
+    text-decoration: none;
+    font-size: large;
+    font-weight: 700;
+    color: #3B2D64;
 }
 
 #DetailsPage{
