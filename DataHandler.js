@@ -1,40 +1,56 @@
 
+//Functionalities when search button is pressed
+function handleSearch(searchInput){
 
-function handleClick(searchInput){
-
+    //Show alert if search field is empty or white
     if(searchInput == "" || searchInput == " " || searchInput == undefined){
-
+        showErrorMessage('Search field empty', 'Please write something to search')
         return;
     }
 
-    deleteChildren(document.getElementById("meal-container"));
 
+    deleteChildren(document.getElementById("meal-container"));
     if(searchInput.length === 1){
         doFetchRequest(`https://www.themealdb.com/api/json/v1/1/search.php?f=${searchInput}`, true);
     }
     else{
         doFetchRequest(`https://www.themealdb.com/api/json/v1/1/search.php?s=${searchInput}`, true);
     }
-
 }
 
 
+//for requesting and receiving response from server with API
 const doFetchRequest = (url, createCard )=>{
-    fetch(url).then(res=>res.json()).then(data => {
-        const meals = data.meals;
+    fetch(url)
+    .then(res=>res.json())
+    .then(data => {
 
+        //Handling null data
+        if(data.meals === null) {          
+            showErrorMessage('Sorry, Food Not Found!','Your searched food is not available in our database')
+            return;
+        }
+
+        const meals = data.meals;
         if(createCard){
             meals.forEach(meal => {
                 makeCard(meal.strMeal, meal.strMealThumb, meal.idMeal);          
             });
         }
+        else{
 
-    }).catch(error => {
-        console.log(error);
+            const ingredientsList =  document.getElementById("ingredients-list");
+            deleteChildren(ingredientsList);
+            handleIngredient(data.meals,ingredientsList);
+        }
     })
-
+    .catch(err => {
+        console.error(err);
+    });
 }
 
+
+//For dynamically making cards of food items
 function makeCard(name, imgSrc, mealID){
     const foodContainer = document.getElementById("meal-container");
 
@@ -65,32 +81,21 @@ function makeCard(name, imgSrc, mealID){
     card.appendChild(cardBody);
     cardBody.appendChild(cardTitle);
 
+
+    //Add click event to the card for showing the details 
     cardCol.addEventListener('click', function(event){
-        console.log(mealID);
-       
+
         document.getElementById("MainPage").style.display = "none";
         document.getElementById("DetailsPage").style.display = "block" ;
         document.getElementById("meal-title").innerText = name;
+        document.getElementById("meal-img").setAttribute("src", imgSrc) ;
 
-        const ingredientsList =  document.getElementById("ingredients-list");
-        deleteChildren(ingredientsList);
-
-        fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${mealID}`).then(res=>res.json()).then(data => {
-           
-        // console.log(data);
-            handleIngredient(data.meals,ingredientsList);
-    
-        }).catch(error => {
-            console.log(error);
-        })
-        
-       
-        
-     })
-
+        doFetchRequest(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${mealID}`);            
+      })
 }
 
 
+//Get and show all the required ingredients with measures
 function handleIngredient(meal, ingredientsList){
     let ingredients = [];
     let measure = [];
@@ -185,8 +190,22 @@ function handleIngredient(meal, ingredientsList){
 }
 
 
+//For deleting previous elements under a parent
 function deleteChildren(container){
     while (container.firstChild) {
         container.removeChild(container.firstChild);
     }
+}
+
+
+//For showing error message
+const showErrorMessage = (title,text) =>{
+
+    swal({
+        title: title,
+        text: text,
+        icon: "error",
+        button: "Close",
+      });
+      
 }

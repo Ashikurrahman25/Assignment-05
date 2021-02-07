@@ -12,15 +12,12 @@ body{
     background-color: aliceblue;
 }
 
+
 #search-btn{
     background-color: #3B2D64;
     height: 50px;
     width: 100px;
     border-radius: 0px 10px 10px 0;
-    border: none;
-}
-
-#search-input{
     border: none;
 }
 
@@ -33,7 +30,7 @@ body{
     border-radius: 15px 15px 0 0; 
 }
 
-.custom{
+.custom-card{
     border: none;
     border-radius: 15px;  
     display: block;
@@ -41,7 +38,7 @@ body{
     margin-right: auto;
 }
 
-.custom img {
+.custom-card img {
     border-radius: 15px 15px 0 0; 
 }
 
