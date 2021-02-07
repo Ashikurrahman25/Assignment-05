@@ -108,18 +108,13 @@ const handleIngredient=(meal, ingredientsList) =>{
 
         const elementIngredient = "strIngredient" + (index+1);
         const elementMeasure = "strMeasure" + (index+1);
+        
         if(meal[elementIngredient]){
-             ingredients.push(meal[elementIngredient]);
-             measure.push(meal[elementMeasure])
+            const item = document.createElement('p');
+            item.innerText = `${meal[elementIngredient]} ${meal[elementMeasure]}`;
+            ingredientsList.appendChild(item);
         }
     }
-
-
-    ingredients.forEach(ingredient => {  
-        const item = document.createElement('p');
-        item.innerText = `${ingredient} ${measure[ingredients.indexOf(ingredient)]}`;
-        ingredientsList.appendChild(item);
-    }); 
 }
 
 
