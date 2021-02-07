@@ -1,0 +1,32 @@
+body{
+    background-color: #EDD263;
+    margin: 50px 100px;
+}
+
+.title{
+    font-family: 'Source Sans Pro', sans-serif;
+    color: #3B2D64;
+}
+
+.nav{
+    background-color: aliceblue;
+}
+
+#search-btn{
+    background-color: #3B2D64;
+    height: 50px;
+    width: 100px;
+}
+
+#search-input{
+    border: none;
+}
+
+#meal{
+    border: none;
+    border-radius: 15px;
+}
+
+#meal img{
+    border-radius: 15px 15px 0 0; 
+}
