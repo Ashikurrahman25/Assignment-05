@@ -2,6 +2,7 @@
 //Functionalities when search button is pressed
 const handleSearch=(searchInput)=>{
 
+    document.getElementById("DetailsPage").style.display = "none" ;
     //Show alert if search field is empty or white
     if(searchInput == "" || searchInput == " " || searchInput == undefined){
         showErrorMessage('Search field empty', 'Please write something to search')
@@ -10,12 +11,8 @@ const handleSearch=(searchInput)=>{
 
 
     deleteChildren(document.getElementById("meal-container"));
-    if(searchInput.length === 1 && searchInput != "#"){
-        doFetchRequest(`https://www.themealdb.com/api/json/v1/1/search.php?f=${searchInput}`, true);
-    }
-    else{
-        doFetchRequest(`https://www.themealdb.com/api/json/v1/1/search.php?s=${searchInput}`, true);
-    }
+    doFetchRequest(`https://www.themealdb.com/api/json/v1/1/search.php?s=${searchInput}`, true);
+
 }
 
 
@@ -90,7 +87,7 @@ const makeCard = (name, imgSrc, mealID) =>{
     cardCol.addEventListener('click', function(event){
 
         document.documentElement.scrollTop = 0;
-        document.getElementById("MainPage").style.display = "none";
+        
         document.getElementById("DetailsPage").style.display = "block" ;
         document.getElementById("meal-title").innerText = name;
         document.getElementById("meal-img").setAttribute("src", imgSrc) ;
@@ -133,16 +130,6 @@ const deleteChildren =(container) =>{
     while (container.firstChild) {
         container.removeChild(container.firstChild);
     }
-}
-
-
-
-//Going back to main page
-const goBack=()=>{
-    document.documentElement.scrollTop = 0;
-    document.getElementById("MainPage").style.display = "block";
-    document.getElementById("DetailsPage").style.display = "none" ;
-    
 }
 
 
