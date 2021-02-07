@@ -10,13 +10,15 @@ const handleSearch=(searchInput)=>{
 
 
     deleteChildren(document.getElementById("meal-container"));
-    if(searchInput.length === 1){
+    if(searchInput.length === 1 && searchInput != "#"){
         doFetchRequest(`https://www.themealdb.com/api/json/v1/1/search.php?f=${searchInput}`, true);
     }
     else{
         doFetchRequest(`https://www.themealdb.com/api/json/v1/1/search.php?s=${searchInput}`, true);
     }
 }
+
+
 
 
 //for requesting and receiving response from server with API
@@ -41,13 +43,15 @@ const doFetchRequest = (url, createCard )=>{
 
             const ingredientsList =  document.getElementById("ingredients-list");
             deleteChildren(ingredientsList);
-            handleIngredient(data.meals,ingredientsList);
+            handleIngredient(data.meals[0],ingredientsList);
         }
     })
     .catch(err => {
         console.error(err);
     });
 }
+
+
 
 
 //For dynamically making cards of food items
@@ -96,99 +100,32 @@ const makeCard = (name, imgSrc, mealID) =>{
 }
 
 
+
+
 //Get and show all the required ingredients with measures
 const handleIngredient=(meal, ingredientsList) =>{
     let ingredients = [];
     let measure = [];
 
-    if(meal[0].strIngredient1){
-        ingredients.push(meal[0].strIngredient1);
-        measure.push(meal[0].strMeasure1)
+    for (let index = 0; index < 20; index++) {
+
+        const elementIngredient = "strIngredient" + (index+1);
+        const elementMeasure = "strMeasure" + (index+1);
+        if(meal[elementIngredient]){
+             ingredients.push(meal[elementIngredient]);
+             measure.push(meal[elementMeasure])
+        }
     }
-    if(meal[0].strIngredient2){
-        ingredients.push(meal[0].strIngredient2);
-        measure.push(meal[0].strMeasure2)
-    }
-    if(meal[0].strIngredient3){
-        ingredients.push(meal[0].strIngredient3);
-        measure.push(meal[0].strMeasure3)
-    }
-    if(meal[0].strIngredient4){
-        ingredients.push(meal[0].strIngredient4);
-        measure.push(meal[0].strMeasure4)
-    }
-    if(meal[0].strIngredient5){
-        ingredients.push(meal[0].strIngredient5);
-        measure.push(meal[0].strMeasure5)
-    }
-    if(meal[0].strIngredient6){
-        ingredients.push(meal[0].strIngredient6);
-        measure.push(meal[0].strMeasure6)
-    }
-    if(meal[0].strIngredient7){
-        ingredients.push(meal[0].strIngredient7);
-        measure.push(meal[0].strMeasure7)
-    }
-    if(meal[0].strIngredient8){
-        ingredients.push(meal[0].strIngredient8);
-        measure.push(meal[0].strMeasure8)
-    }
-    if(meal[0].strIngredient9){
-        ingredients.push(meal[0].strIngredient9);
-        measure.push(meal[0].strMeasure9)
-    }
-    if(meal[0].strIngredient10){
-        ingredients.push(meal[0].strIngredient10);
-        measure.push(meal[0].strMeasure10)
-    }
-    if(meal[0].strIngredient11){
-        ingredients.push(meal[0].strIngredient11);
-        measure.push(meal[0].strMeasure11)
-    }
-    if(meal[0].strIngredient12){
-        ingredients.push(meal[0].strIngredient12);
-        measure.push(meal[0].strMeasure12)
-    }
-    if(meal[0].strIngredient13){
-        ingredients.push(meal[0].strIngredient13);
-        measure.push(meal[0].strMeasure13)
-    }
-    if(meal[0].strIngredient14){
-        ingredients.push(meal[0].strIngredient14);
-        measure.push(meal[0].strMeasure14)
-    }
-    if(meal[0].strIngredient15){
-        ingredients.push(meal[0].strIngredient15);
-        measure.push(meal[0].strMeasure15)
-    }
-    if(meal[0].strIngredient16){
-        ingredients.push(meal[0].strIngredient16);
-        measure.push(meal[0].strMeasure16)
-    }
-    if(meal[0].strIngredient17){
-        ingredients.push(meal[0].strIngredient17);
-        measure.push(meal[0].strMeasure17)
-    }
-    if(meal[0].strIngredient18){
-        ingredients.push(meal[0].strIngredient18);
-        measure.push(meal[0].strMeasure18)
-    }
-    if(meal[0].strIngredient19){
-        ingredients.push(meal[0].strIngredient19);
-        measure.push(meal[0].strMeasure19)
-    }
-    if(meal[0].strIngredient20){
-        ingredients.push(meal[0].strIngredient20);
-        measure.push(meal[0].strMeasure20)
-    }
-    
-    ingredients.forEach(ingredient => {
-   
+
+
+    ingredients.forEach(ingredient => {  
         const item = document.createElement('p');
         item.innerText = `${ingredient} ${measure[ingredients.indexOf(ingredient)]}`;
         ingredientsList.appendChild(item);
     }); 
 }
+
+
 
 
 //For deleting previous elements under a parent
@@ -199,12 +136,16 @@ const deleteChildren =(container) =>{
 }
 
 
+
+//Going back to main page
 const goBack=()=>{
     document.documentElement.scrollTop = 0;
     document.getElementById("MainPage").style.display = "block";
     document.getElementById("DetailsPage").style.display = "none" ;
     
 }
+
+
 
 //For showing error message
 const showErrorMessage = (title,text) =>{
