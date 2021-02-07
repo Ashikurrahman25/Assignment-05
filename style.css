@@ -16,6 +16,8 @@ body{
     background-color: #3B2D64;
     height: 50px;
     width: 100px;
+    border-radius: 0px 10px 10px 0;
+    border: none;
 }
 
 #search-input{
@@ -29,4 +31,30 @@ body{
 
 #meal img{
     border-radius: 15px 15px 0 0; 
+}
+
+.custom{
+    border: none;
+    border-radius: 15px;  
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.custom img {
+    border-radius: 15px 15px 0 0; 
+}
+
+p:before {
+    content: "";
+    display: block;
+    background: url(Icon/checkmark.png) no-repeat;
+    width: 25px;
+    height: 25px;
+    float: left;
+    margin: 0 6px 0 0;
+}
+
+#DetailsPage{
+    display: none;
 }
