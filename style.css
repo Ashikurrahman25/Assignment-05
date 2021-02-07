@@ -21,6 +21,15 @@ body{
     border: none;
 }
 
+#back-button{
+
+    background-color: #3B2D64;
+    height: 50px;
+    width: 100px;
+    border-radius: 10px;
+    border: none;
+}
+
 #meal{
     border: none;
     border-radius: 15px;
@@ -40,6 +49,7 @@ body{
 
 .custom-card img {
     border-radius: 15px 15px 0 0; 
+    height: 500px;
 }
 
 p:before {

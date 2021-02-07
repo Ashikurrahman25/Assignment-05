@@ -198,6 +198,11 @@ function deleteChildren(container){
 }
 
 
+function goBack(){
+    document.getElementById("MainPage").style.display = "block";
+    document.getElementById("DetailsPage").style.display = "none" ;
+}
+
 //For showing error message
 const showErrorMessage = (title,text) =>{
 
